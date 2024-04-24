@@ -37,7 +37,6 @@ from huggingface_hub import (
 from huggingface_hub.utils import OfflineModeIsEnabled, validate_hf_hub_args
 from packaging import version
 from requests.exceptions import HTTPError
-from tqdm.auto import tqdm
 
 from .. import __version__
 from ..configuration_utils import ConfigMixin
@@ -1627,9 +1626,9 @@ class DiffusionPipeline(ConfigMixin, PushToHubMixin):
             )
 
         if iterable is not None:
-            return tqdm(iterable, **self._progress_bar_config)
+            return logging.tqdm(iterable, **self._progress_bar_config)
         elif total is not None:
-            return tqdm(total=total, **self._progress_bar_config)
+            return logging.tqdm(total=total, **self._progress_bar_config)
         else:
             raise ValueError("Either `total` or `iterable` has to be defined.")
 
